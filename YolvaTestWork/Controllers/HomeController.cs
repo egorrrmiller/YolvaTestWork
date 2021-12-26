@@ -17,7 +17,6 @@ public class HomeController : ControllerBase
 
     [HttpGet]
     [Route("get/polygon")]
-    /*public async Task<IActionResult> GetPolygon([FromBody] GeoPolygon geoPolygon)*/
     public async Task<IActionResult> GetPolygon(string address, int dotPolygon, string fileName, GeoServicesEnum geoService)
     {
         var geoPolygon = new GeoPolygon()

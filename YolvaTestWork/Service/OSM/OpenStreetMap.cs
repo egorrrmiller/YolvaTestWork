@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using YolvaTestWork.Enums;
 using YolvaTestWork.Models;
 
@@ -18,8 +16,6 @@ public class OpenStreetMap : IGeoPolygon
     {
         _httpRequest.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36 Edg/96.0.1054.62";
         var httpResponse = _httpRequest.Get($"https://nominatim.openstreetmap.org/search?q={geoPolygon.Address}&format=json&polygon_geojson=1").ToString();
-
-        Stopwatch timer = Stopwatch.StartNew();
         
         var json = JsonConvert.DeserializeObject<List<OpenStreetMapJsonModel>>(httpResponse)?.FirstOrDefault()?.Geojson;
 
@@ -32,9 +28,6 @@ public class OpenStreetMap : IGeoPolygon
                 polygons.Add(result);
             }
         }
-
-        timer.Stop();
-        Console.WriteLine(timer.ElapsedMilliseconds + "ms");
         
         return Task.FromResult(JsonConvert.SerializeObject(polygons));
     }

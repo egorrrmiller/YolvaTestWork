@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using YolvaTestWork.Models;
+﻿using YolvaTestWork.Models;
 
 namespace YolvaTestWork.Service;
 

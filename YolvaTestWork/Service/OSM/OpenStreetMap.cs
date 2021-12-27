@@ -23,12 +23,10 @@ public class OpenStreetMap : IGeoPolygon
         foreach (var _ in json!.Coordinates)
         {
             var coord = JsonConvert.DeserializeObject<List<List<object>>>(_.ToString()!);
-            foreach (var result in coord!)
-            {
-                polygons.Add(result);
-            }
+
+            for (int i = 0; i < coord.Count; i += geoPolygon.DotPolygon - 1)
+                polygons.Add(new List<object>() { coord[i] });
         }
-        
         return Task.FromResult(JsonConvert.SerializeObject(polygons));
     }
 }

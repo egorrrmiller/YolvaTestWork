@@ -19,14 +19,39 @@ public class OpenStreetMap : IGeoPolygon
         
         var json = JsonConvert.DeserializeObject<List<OpenStreetMapJsonModel>>(httpResponse)?.FirstOrDefault()?.Geojson;
 
-        List<List<object>> polygons = new();
-        foreach (var _ in json!.Coordinates)
+        object results = null!;
+        
+        if (json!.Type == TypePolygonEnum.Polygon.ToString())
         {
-            var coord = JsonConvert.DeserializeObject<List<List<object>>>(_.ToString()!);
+            List<object> polygon = new();
+            var coordinates =
+                JsonConvert.DeserializeObject<List<List<object>>>(json.Coordinates[0].ToString()!);
+            for (int i = 0; i < coordinates!.Count; i += geoPolygon.DotPolygon - 1)
+                polygon.Add(coordinates[i]);
 
-            for (int i = 0; i < coord.Count; i += geoPolygon.DotPolygon - 1)
-                polygons.Add(new List<object>() { coord[i] });
+            results = polygon;
         }
-        return Task.FromResult(JsonConvert.SerializeObject(polygons));
+        else if (json.Type == TypePolygonEnum.MultiPolygon.ToString())
+        {
+            List<object> coords = new();
+            List<List<List<object>>> result = new();
+            foreach (var coordinate in json.Coordinates)
+            {
+                var coordinateJson = JsonConvert.DeserializeObject<List<List<List<object>>>>(coordinate.ToString()!);
+                foreach (var _ in coordinateJson!)
+                {
+                    for (int i = 0; i < _.Count; i += geoPolygon.DotPolygon - 1)
+                        coords.Add(_[i]);
+                        
+                    result.Add(new List<List<object>> { coords });
+
+                    coords = new List<object>();
+                }
+            }
+
+            results = result;
+        }
+        
+        return Task.FromResult(JsonConvert.SerializeObject(results));
     }
 }

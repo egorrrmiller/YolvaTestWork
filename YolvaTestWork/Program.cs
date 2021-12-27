@@ -1,11 +1,11 @@
-using YolvaTestWork.Service;
+using YolvaTestWork.GeoServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.Scan(scan => scan
-    .FromAssemblyOf<IGeoPolygon>().AddClasses().AsImplementedInterfaces()
+    .FromAssemblyOf<IGeoService>().AddClasses().AsImplementedInterfaces()
     .WithTransientLifetime());
 
 builder.Services.AddControllers().AddNewtonsoftJson();

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace YolvaTestWork.Service.OSM;
+namespace YolvaTestWork.GeoServices.OSM;
 
 public class Geojson
 {

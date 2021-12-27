@@ -2,7 +2,7 @@
 
 namespace YolvaTestWork.Models;
 
-public class GeoPolygon
+public class GeoPolygonModel
 {
     public string Address { get; set; }
     public int DotPolygon { get; set; }  

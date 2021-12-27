@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using YolvaTestWork.Enums;
+using YolvaTestWork.GeoServices;
 using YolvaTestWork.Models;
-using YolvaTestWork.Service;
 
 namespace YolvaTestWork.Controllers;
 
 [ApiController]
 public class HomeController : ControllerBase
 {
-    private readonly IEnumerable<IGeoPolygon> _geoPolygons;
+    private readonly IEnumerable<IGeoService> _geoPolygons;
 
 
-    public HomeController(IEnumerable<IGeoPolygon> geoPolygons)
+    public HomeController(IEnumerable<IGeoService> geoPolygons)
     {
         _geoPolygons = geoPolygons; }
 
@@ -19,7 +19,7 @@ public class HomeController : ControllerBase
     [Route("get/polygon")]
     public async Task<IActionResult> GetPolygon(string address, int dotPolygon, string fileName, GeoServicesEnum geoService)
     {
-        var geoPolygon = new GeoPolygon()
+        var geoPolygon = new GeoPolygonModel()
         {
             Address = address,
             DotPolygon = dotPolygon,

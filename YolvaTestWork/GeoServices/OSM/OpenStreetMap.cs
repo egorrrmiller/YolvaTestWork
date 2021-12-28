@@ -18,10 +18,11 @@ public class OpenStreetMap : IGeoService
         var httpResponse = _httpRequest.Get($"https://nominatim.openstreetmap.org/search?q={geoPolygonModel.Address}&format=json&polygon_geojson=1").ToString();
         
         var json = JsonConvert.DeserializeObject<List<OpenStreetMapJsonModel>>(httpResponse)?.FirstOrDefault()?.Geojson;
+        var typePolygonEnum = Enum.Parse<OsmTypePolygonEnum>(json!.Type);
 
         object results = null!;
         
-        if (json!.Type == TypePolygonEnum.Polygon.ToString())
+        if (typePolygonEnum == OsmTypePolygonEnum.Polygon)
         {
             List<object> polygon = new();
             var coordinates =
@@ -31,7 +32,7 @@ public class OpenStreetMap : IGeoService
 
             results = polygon;
         }
-        else if (json.Type == TypePolygonEnum.MultiPolygon.ToString())
+        else if (typePolygonEnum == OsmTypePolygonEnum.MultiPolygon)
         {
             List<object> coords = new();
             List<List<List<object>>> result = new();

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Text;
+using Microsoft.AspNetCore.Mvc;
 using YolvaTestWork.Enums;
 using YolvaTestWork.GeoServices;
 using YolvaTestWork.Models;
@@ -29,8 +30,6 @@ public class HomeController : ControllerBase
         
         var result = await _geoPolygons.FirstOrDefault(ex => ex.CanExecute(geoPolygon).Result)?.Execute(geoPolygon)!;
 
-        await System.IO.File.WriteAllTextAsync($"{geoPolygon.FileName}.json", result);
-        Response.Headers.Add("Content-Disposition", $"attachment; filename={geoPolygon.FileName}.json");
-        return new FileContentResult(await System.IO.File.ReadAllBytesAsync($"{geoPolygon.FileName}.json"), "application/json");
+        return File(Encoding.UTF8.GetBytes(result), "application/json", $"{fileName}.json");
     }
 }

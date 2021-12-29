@@ -18,11 +18,18 @@ public class HomeController : ControllerBase
 
     [HttpGet]
     [Route("get/polygon")]
-    /*public async Task<IActionResult> GetPolygon(string address, int dotPolygon, string fileName, GeoServicesEnum geoService)*/
-    public async Task<IActionResult> GetPolygon([FromQuery] GeoPolygonModel geoPolygon)
+    public async Task<IActionResult> GetPolygon(string address, int dotPolygon, string fileName, GeoServicesEnum geoService)
     {
+        var geoPolygon = new GeoPolygonModel()
+        {
+            Address = address,
+            DotPolygon = dotPolygon,
+            FileName = fileName,
+            GeoService = geoService
+        };
+        
         var result = await _geoPolygons.FirstOrDefault(ex => ex.CanExecute(geoPolygon).Result)?.Execute(geoPolygon)!;
 
-        return File(Encoding.UTF8.GetBytes(result), "application/json", $"{geoPolygon.FileName}.json");
+        return File(Encoding.UTF8.GetBytes(result), "application/json", $"{fileName}.json");
     }
 }

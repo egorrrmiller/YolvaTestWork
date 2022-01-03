@@ -13,3 +13,6 @@
 - #### [Контроллер](https://github.com/egorrrmiller/YolvaTestWork/blob/master/YolvaTestWork/Controllers/HomeController.cs)
 - #### [Тут добавление геосервисов](https://github.com/egorrrmiller/YolvaTestWork/blob/master/YolvaTestWork/Enums/GeoServicesEnum.cs)
 - #### [Тут можно посмотреть как выглядит реализация геосервисов](https://github.com/egorrrmiller/YolvaTestWork/tree/master/YolvaTestWork/GeoServices)
+
+# 
+### Задание выполнено 100% не правильно, т.к я не работал ранее с геосервисами и им подобными, поэтому мало представляю как должен выглядить вывод точек полигона. В задании не указан правильный формат, поэтому вывел как мне удобно

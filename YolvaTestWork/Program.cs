@@ -1,4 +1,5 @@
 using YolvaTestWork.GeoServices;
+using YolvaTestWork.GeoServices.OSM.TypePolygon;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Scan(scan => scan
     .FromAssemblyOf<IGeoService>().AddClasses().AsImplementedInterfaces()
+    .FromAssemblyOf<IPolygon>().AddClasses().AsImplementedInterfaces()
     .WithTransientLifetime());
 
 builder.Services.AddControllers().AddNewtonsoftJson();

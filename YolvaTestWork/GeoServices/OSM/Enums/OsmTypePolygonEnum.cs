@@ -1,4 +1,4 @@
-﻿namespace YolvaTestWork.GeoServices.OSM;
+﻿namespace YolvaTestWork.GeoServices.OSM.Enums;
 
 public enum OsmTypePolygonEnum
 {

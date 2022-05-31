@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Mvc;
-using YolvaTestWork.Enums;
 using YolvaTestWork.GeoServices;
 using YolvaTestWork.Models;
 
@@ -11,10 +10,10 @@ public class HomeController : ControllerBase
 {
     private readonly IEnumerable<IGeoService> _geoPolygons;
 
-
     public HomeController(IEnumerable<IGeoService> geoPolygons)
     {
-        _geoPolygons = geoPolygons; }
+        _geoPolygons = geoPolygons;
+    }
 
     [HttpGet]
     [Route("get/polygon")]
